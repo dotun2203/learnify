@@ -16,7 +16,8 @@ RUN pip install --upgrade pip && pip install -r ${REQUIREMENTS}
 
 COPY . .
 
-RUN useradd -m appuser && chown -R appuser /app
+RUN mkdir -p /app/media /app/staticfiles \
+    && useradd -m appuser && chown -R appuser /app
 USER appuser
 
 EXPOSE 8000
