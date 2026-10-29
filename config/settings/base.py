@@ -221,3 +221,15 @@ OTP_MAX_ATTEMPTS = 5
 OTP_RESEND_COOLDOWN_SECONDS = 60
 
 DEFAULT_FROM_EMAIL = env("DEFAULT_FROM_EMAIL", default="Learnify <no-reply@learnify.local>")
+SERVER_EMAIL = DEFAULT_FROM_EMAIL
+SUPPORT_EMAIL = env("SUPPORT_EMAIL", default="support@learnify.local")
+
+# --- Outgoing email (SMTP). dev/test override the backend. ---
+EMAIL_BACKEND = env("EMAIL_BACKEND", default="django.core.mail.backends.smtp.EmailBackend")
+EMAIL_HOST = env("EMAIL_HOST", default="localhost")
+EMAIL_PORT = env.int("EMAIL_PORT", default=587)
+EMAIL_HOST_USER = env("EMAIL_HOST_USER", default="")
+EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD", default="")
+EMAIL_USE_TLS = env.bool("EMAIL_USE_TLS", default=True)
+EMAIL_USE_SSL = env.bool("EMAIL_USE_SSL", default=False)
+EMAIL_TIMEOUT = env.int("EMAIL_TIMEOUT", default=10)
