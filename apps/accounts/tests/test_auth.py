@@ -112,6 +112,14 @@ def test_login_wrong_password(api_client, user):
     assert res.data["error"]["code"] == "invalid_credentials"
 
 
+def test_login_nonexistent_user(api_client):
+    res = api_client.post(reverse("auth-login"),
+                          {"identifier": "nonexistent@example.com", "password": "nope"},
+                          format="json")
+    assert res.status_code == 401
+    assert res.data["error"]["code"] == "invalid_credentials"
+
+
 def test_login_inactive_user(api_client, user):
     user.is_active = False
     user.save()

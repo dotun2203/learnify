@@ -1,6 +1,9 @@
+from django.contrib.auth import get_user_model
 from django.contrib.auth.backends import ModelBackend
 
 from .selectors import get_user_by_identifier
+
+UserModel = get_user_model()
 
 
 class EmailOrPhoneBackend(ModelBackend):
@@ -13,7 +16,7 @@ class EmailOrPhoneBackend(ModelBackend):
         user = get_user_by_identifier(identifier)
         if user is None:
             # Run the hasher anyway so response time doesn't reveal unknown accounts
-            self.user_model().set_password(password)
+            UserModel().set_password(password)
             return None
         if user.check_password(password) and self.user_can_authenticate(user):
             return user
